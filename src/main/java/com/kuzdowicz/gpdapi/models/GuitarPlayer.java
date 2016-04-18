@@ -1,14 +1,21 @@
 package com.kuzdowicz.gpdapi.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GUITAR_PLAYER")
+@Table(name = "GUITAR_PLAYERS")
 public class GuitarPlayer {
 
 	@Id
@@ -28,8 +35,9 @@ public class GuitarPlayer {
 	@Column(name = "IS_ALIVE")
 	private boolean heIsAlive;
 
-	@Column(name = "GUITAR_BRAND")
-	private String guitarBrand;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "GUITAR_PLAYERS_AND_GUITARS_JOIN", joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), inverseJoinColumns = @JoinColumn(name = "GUITAR_ID"))
+	private List<Guitar> guitars;
 
 	public Long getGuitarPlayerId() {
 		return guitarPlayerId;
@@ -71,12 +79,12 @@ public class GuitarPlayer {
 		this.heIsAlive = heIsAlive;
 	}
 
-	public String getGuitarBrand() {
-		return guitarBrand;
+	public List<Guitar> getGuitars() {
+		return guitars;
 	}
 
-	public void setGuitarBrand(String guitarBrand) {
-		this.guitarBrand = guitarBrand;
+	public void setGuitars(List<Guitar> guitars) {
+		this.guitars = guitars;
 	}
 
 }
