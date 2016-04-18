@@ -1,5 +1,6 @@
 package com.kuzdowicz.gpdapi.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class GuitarPlayer {
 	private boolean heIsAlive;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "GUITAR_PLAYERS_AND_GUITARS_JOIN", joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), inverseJoinColumns = @JoinColumn(name = "GUITAR_ID"))
+	@JoinTable(name = "GUITAR_PLAYERS_AND_GUITARS_JOIN", joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), inverseJoinColumns = @JoinColumn(name = "MODEL_VERSION_NAME"))
 	private List<Guitar> guitars;
 
 	public Long getGuitarPlayerId() {
@@ -80,6 +81,9 @@ public class GuitarPlayer {
 	}
 
 	public List<Guitar> getGuitars() {
+		if (guitars == null) {
+			guitars = new ArrayList<>();
+		}
 		return guitars;
 	}
 

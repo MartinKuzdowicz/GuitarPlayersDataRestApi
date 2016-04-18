@@ -47,28 +47,29 @@ public class GuitarPlayersController {
 
 	@RequestMapping("/init-test-data")
 	public void initTestData() {
-		
-		
+
 		Brand fenderBrand = new Brand();
 		fenderBrand.setName("Fender");
 		fenderBrand.setWebSite("https://www.fender.com");
-		
+
 		Brand gibsonBrand = new Brand();
 		gibsonBrand.setName("Gibson");
 		gibsonBrand.setWebSite("https://www.gibson.com");
-		
+
 		Guitar stratocaster = new Guitar();
 		stratocaster.setType(GuitarType.ELECTRIC_SOLID_BODY);
 		stratocaster.setModelName("Stratocatser");
-		stratocaster.setBrand(fenderBrand);
 		stratocaster.setAvgPrice(new BigDecimal("2500.99"));
-		
+		stratocaster.setModelVersionName("50 anniversary v001");
+		stratocaster.setBrand(fenderBrand);
+
 		Guitar lesPaul = new Guitar();
 		lesPaul.setType(GuitarType.ELECTRIC_SOLID_BODY);
 		lesPaul.setModelName("Les Paul");
-		lesPaul.setBrand(gibsonBrand);
 		lesPaul.setAvgPrice(new BigDecimal("4500.99"));
-	
+		lesPaul.setModelVersionName("59");
+		lesPaul.setBrand(gibsonBrand);
+
 		GuitarPlayer santana = new GuitarPlayer();
 		santana.setName("Carlos");
 		santana.setLastname("Santana");
@@ -83,18 +84,9 @@ public class GuitarPlayersController {
 		hendrix.setHeIsAlive(false);
 		hendrix.getGuitars().add(stratocaster);
 
-		GuitarPlayer blackmore = new GuitarPlayer();
-		hendrix.setName("Ritchie");
-		hendrix.setLastname("Blackmore");
-		hendrix.setAge(28);
-		hendrix.setHeIsAlive(false);
-		blackmore.getGuitars().add(stratocaster);
-		blackmore.getGuitars().add(lesPaul);
-
 		List<GuitarPlayer> guitarPlayers = new ArrayList<>();
 		guitarPlayers.add(santana);
 		guitarPlayers.add(hendrix);
-		guitarPlayers.add(blackmore);
 
 		guitarPlayersRepository.save(guitarPlayers);
 

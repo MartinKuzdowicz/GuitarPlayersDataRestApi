@@ -1,7 +1,6 @@
 package com.kuzdowicz.gpdapi.models;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,11 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,15 +20,14 @@ import com.kuzdowicz.gpdapi.constants.GuitarType;
 public class Guitar {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "GUITAR_ID")
-	private Long guitarId;
+	@Column(name = "MODEL_VERSION_NAME")
+	private String modelVersionName;
 
 	@Column(name = "MODEL_NAME")
 	private String modelName;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "BRAND_ID")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "BRAND_NAME")
 	private Brand brand;
 
 	@Column(name = "TYPE")
@@ -41,9 +36,6 @@ public class Guitar {
 
 	@Column(name = "AVG_PRICE")
 	private BigDecimal avgPrice;
-
-	@ManyToMany(mappedBy = "guitars")
-	private List<GuitarPlayer> players;
 
 	public String getModelName() {
 		return modelName;
@@ -77,20 +69,12 @@ public class Guitar {
 		this.avgPrice = avgPrice;
 	}
 
-	public Long getGuitarId() {
-		return guitarId;
+	public String getModelVersionName() {
+		return modelVersionName;
 	}
 
-	public void setGuitarId(Long guitarId) {
-		this.guitarId = guitarId;
-	}
-
-	public List<GuitarPlayer> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(List<GuitarPlayer> players) {
-		this.players = players;
+	public void setModelVersionName(String modelVersionName) {
+		this.modelVersionName = modelVersionName;
 	}
 
 }
