@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "GUITAR_BRANDS")
-public class Brand {
+public class ProductBrand {
 
 	@Id
 	@Column(name = "BRAND_NAME")

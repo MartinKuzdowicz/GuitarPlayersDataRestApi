@@ -1,6 +1,7 @@
 package com.kuzdowicz.gpdapi.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,8 +37,16 @@ public class GuitarPlayer {
 	@Column(name = "IS_ALIVE")
 	private boolean heIsAlive;
 
+	@Column(name = "DATE_OF_BIRTH")
+	private Date dateOfBirth;
+
+	@Column(name = "NATIONALITY")
+	private String nationality;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinTable(name = "GUITAR_PLAYERS_AND_GUITARS_JOIN", joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), inverseJoinColumns = @JoinColumn(name = "MODEL_VERSION_NAME"))
+	@JoinTable(name = "GUITAR_PLAYERS_AND_GUITARS_JOIN", //
+			joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), //
+			inverseJoinColumns = @JoinColumn(name = "MODEL_VERSION_NAME"))
 	private List<Guitar> guitars;
 
 	public Long getGuitarPlayerId() {
@@ -89,6 +98,22 @@ public class GuitarPlayer {
 
 	public void setGuitars(List<Guitar> guitars) {
 		this.guitars = guitars;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
 }

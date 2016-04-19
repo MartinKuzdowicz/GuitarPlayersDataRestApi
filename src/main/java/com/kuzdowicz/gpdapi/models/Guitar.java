@@ -28,7 +28,7 @@ public class Guitar {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BRAND_NAME")
-	private Brand brand;
+	private ProductBrand brand;
 
 	@Column(name = "TYPE")
 	@Enumerated(EnumType.STRING)
@@ -45,11 +45,11 @@ public class Guitar {
 		this.modelName = modelName;
 	}
 
-	public Brand getBrand() {
+	public ProductBrand getBrand() {
 		return brand;
 	}
 
-	public void setBrand(Brand brand) {
+	public void setBrand(ProductBrand brand) {
 		this.brand = brand;
 	}
 
