@@ -13,22 +13,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuzdowicz.gpdapi.constants.GuitarType;
 
 @Entity
 @Table(name = "GUITARS")
 public class Guitar {
 
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "BRAND_NAME")
+	private ProductBrand brand;
+
 	@Id
 	@Column(name = "MODEL_VERSION_NAME")
+	@JsonIgnore
 	private String modelVersionName;
 
 	@Column(name = "MODEL_NAME")
 	private String modelName;
-
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "BRAND_NAME")
-	private ProductBrand brand;
 
 	@Column(name = "TYPE")
 	@Enumerated(EnumType.STRING)

@@ -16,6 +16,9 @@ public class ProductBrand {
 	@Column(name = "WEBSITE")
 	private String webSite;
 
+	@Column(name = "COUNTRY_OF_ORIGIN")
+	private String countryOfOrigin;
+
 	public String getName() {
 		return name;
 	}
@@ -30,6 +33,14 @@ public class ProductBrand {
 
 	public void setWebSite(String webSite) {
 		this.webSite = webSite;
+	}
+
+	public String getCountryOfOrigin() {
+		return countryOfOrigin;
+	}
+
+	public void setCountryOfOrigin(String countryOfOrigin) {
+		this.countryOfOrigin = countryOfOrigin;
 	}
 
 }

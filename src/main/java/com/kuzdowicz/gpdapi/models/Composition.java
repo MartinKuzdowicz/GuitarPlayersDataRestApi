@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "COMPOSITIONS")
@@ -28,19 +31,22 @@ public class Composition implements IDomainPKeySetable {
 	@Column(name = "TITLE")
 	private String title;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ALBUM_ID")
+	@JsonBackReference
+	private Album album;
+
 	@Id
 	@Column(name = "COMPOSITION_ID")
 	@JsonIgnore
 	private String albumNameAndTrackTitle;
 
-	@OneToMany
-	@JoinColumn(name = "COMPOSITION_ID")
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "GUITAR_PLAYERS_COMPOSITIONS_JOIN", //
+	joinColumns = @JoinColumn(name = "COMPOSITION_ID"),//
+	inverseJoinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"))
+	@JsonIgnoreProperties({ "guitars" })
 	private List<GuitarPlayer> authors;
-
-	@ManyToOne
-	@JoinColumn(name = "ALBUM_ID")
-	@JsonBackReference
-	private Album album;
 
 	@Override
 	public void generateAndSetPrimaryKey() {

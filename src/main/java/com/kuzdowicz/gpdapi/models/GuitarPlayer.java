@@ -18,14 +18,18 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "GUITAR_PLAYERS")
+@JsonInclude(Include.NON_EMPTY)
 public class GuitarPlayer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "GUITAR_PLAYER_ID")
+	@JsonIgnore
 	private Long guitarPlayerId;
 
 	@Column(name = "NAME")
@@ -42,6 +46,9 @@ public class GuitarPlayer {
 
 	@Column(name = "DATE_OF_BIRTH")
 	private Date dateOfBirth;
+
+	@Column(name = "DATE_OF_DEATH")
+	private Date dateOfDeath;
 
 	@Column(name = "NATIONALITY")
 	private String nationality;
@@ -133,6 +140,14 @@ public class GuitarPlayer {
 
 	public void setNameAndLastName(String nameAndLastName) {
 		this.nameAndLastName = nameAndLastName;
+	}
+
+	public Date getDateOfDeath() {
+		return dateOfDeath;
+	}
+
+	public void setDateOfDeath(Date dateOfDeath) {
+		this.dateOfDeath = dateOfDeath;
 	}
 
 }

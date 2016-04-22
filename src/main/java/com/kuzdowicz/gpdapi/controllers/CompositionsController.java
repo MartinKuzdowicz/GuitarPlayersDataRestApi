@@ -1,6 +1,7 @@
 package com.kuzdowicz.gpdapi.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +26,13 @@ public class CompositionsController {
 	public List<Composition> getAllCompositions() {
 		return compositionsRepository.findAll();
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/titels")
+	public List<String> getAllCompositionsTitels() {
+		return compositionsRepository.findAll().stream().map(el -> {
+			return el.getTitle();
+		}).collect(Collectors.toList());
+	}
+	
 
 }

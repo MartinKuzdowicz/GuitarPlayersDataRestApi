@@ -103,7 +103,7 @@ public class InitDataController {
 		bandsRepository.save(hendrixSantatnaBand);
 
 		Album santanaAbraxas = new Album();
-		santanaAbraxas.setSingleAuthor(santana);
+		santanaAbraxas.getAuthors().add(santana);
 		santanaAbraxas.setTitle("Abraxas");
 		santanaAbraxas.generateAndSetPrimaryKey();
 

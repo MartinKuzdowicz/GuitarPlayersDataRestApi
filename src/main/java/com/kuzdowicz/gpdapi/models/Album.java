@@ -9,12 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -29,29 +30,12 @@ public class Album implements IDomainPKeySetable {
 	@JsonIgnore
 	private String authorAndTitle;
 
-	public void setTransientAuthor() {
-		if (this.singleAuthor != null) {
-			this.author = singleAuthor.getName();
-		}
-
-		if (this.bandAuthor != null) {
-			this.author = bandAuthor.getName();
-		}
-	}
-
-	@Transient
-	@JsonIgnore
-	private String author;
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "GUITAR_PLAYER_ID")
-	private GuitarPlayer singleAuthor;
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "NAME")
-	private Band bandAuthor;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "ALBUMS_AUTHORS_JOIN", //
+			joinColumns = @JoinColumn(name = "ALBUM_ID"), //
+			inverseJoinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"))
+	@JsonIgnoreProperties({ "guitars" })
+	private List<GuitarPlayer> authors;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID")
@@ -61,21 +45,22 @@ public class Album implements IDomainPKeySetable {
 	@Override
 	public void generateAndSetPrimaryKey() {
 
-		String key = "";
+		StringBuilder sb = new StringBuilder();
 
-		if (this.singleAuthor != null) {
+		for (int i = 0; i < this.authors.size(); i++) {
 
-			key = this.singleAuthor.getName().trim() + " " + //
-					this.singleAuthor.getLastname().trim() + "(" + this.title + ")";
+			GuitarPlayer author = authors.get(i);
+
+			sb.append(author.getName().trim() + " " + //
+					author.getLastname().trim());
+			if (i > 0 && i != authors.size() - 1) {
+				sb.append(", ");
+			}
 		}
 
-		if (this.bandAuthor != null) {
+		sb.append("(" + this.title + ")");
 
-			key = this.bandAuthor.getName().trim() + //
-					"(" + this.title + ")";
-		}
-
-		this.authorAndTitle = key;
+		this.authorAndTitle = sb.toString();
 	}
 
 	public String getAuthorAndTitle() {
@@ -90,28 +75,10 @@ public class Album implements IDomainPKeySetable {
 		this.title = title;
 	}
 
-	public GuitarPlayer getSingleAuthor() {
-		return singleAuthor;
-	}
-
-	public void setSingleAuthor(GuitarPlayer singleAuthor) {
-		this.singleAuthor = singleAuthor;
-	}
-
-	public Band getBandAuthor() {
-		return bandAuthor;
-	}
-
-	public void setBandAuthor(Band bandAuthor) {
-		this.bandAuthor = bandAuthor;
-	}
-
 	public List<Composition> getTracks() {
-
 		if (tracks == null) {
 			tracks = new ArrayList<>();
 		}
-
 		return tracks;
 	}
 
@@ -119,8 +86,15 @@ public class Album implements IDomainPKeySetable {
 		this.tracks = tracks;
 	}
 
-	public String getAuthor() {
-		return author;
+	public List<GuitarPlayer> getAuthors() {
+		if (authors == null) {
+			authors = new ArrayList<>();
+		}
+		return authors;
+	}
+
+	public void setAuthors(List<GuitarPlayer> authors) {
+		this.authors = authors;
 	}
 
 }
