@@ -44,10 +44,12 @@ public class InitDataController {
 		ProductBrand fenderBrand = new ProductBrand();
 		fenderBrand.setName("Fender");
 		fenderBrand.setWebSite("https://www.fender.com");
+		fenderBrand.setCountryOfOrigin("USA");
 
 		ProductBrand gibsonBrand = new ProductBrand();
 		gibsonBrand.setName("Gibson");
 		gibsonBrand.setWebSite("https://www.gibson.com");
+		gibsonBrand.setCountryOfOrigin("USA");
 
 		Guitar stratocaster = new Guitar();
 		stratocaster.setType(GuitarType.ELECTRIC_SOLID_BODY);
@@ -107,19 +109,34 @@ public class InitDataController {
 		santanaAbraxas.setTitle("Abraxas");
 		santanaAbraxas.generateAndSetPrimaryKey();
 
+		Album electricLadyLand = new Album();
+		electricLadyLand.getAuthors().add(hendrix);
+		electricLadyLand.setTitle("Electric Ladyland");
+		electricLadyLand.generateAndSetPrimaryKey();
+
+		Composition voodooChile = new Composition("voodoo chile");
+		voodooChile.setAuthors(Arrays.asList(hendrix));
+		voodooChile.setAlbum(electricLadyLand);
+		voodooChile.generateAndSetPrimaryKey();
+		voodooChile.setDuration(4.66);
+
 		Composition sambaPaTi = new Composition("samba pa ti");
 		sambaPaTi.setAuthors(Arrays.asList(santana));
 		sambaPaTi.setAlbum(santanaAbraxas);
 		sambaPaTi.generateAndSetPrimaryKey();
+		sambaPaTi.setDuration(3.59);
 
 		Composition blackMagicWoman = new Composition("Black Magic Woman/Gypsy Queen");
 		blackMagicWoman.setAuthors(Arrays.asList(santana));
 		blackMagicWoman.setAlbum(santanaAbraxas);
 		blackMagicWoman.generateAndSetPrimaryKey();
+		blackMagicWoman.setDuration(2.40);
 
 		santanaAbraxas.setTracks(Arrays.asList(sambaPaTi, blackMagicWoman));
 
-		albumsRepository.save(santanaAbraxas);
+		electricLadyLand.setTracks(Arrays.asList(voodooChile));
+
+		albumsRepository.save(Arrays.asList(santanaAbraxas, electricLadyLand));
 
 		return "DATA INITALIZED SUCCESSFUL !!!";
 

@@ -14,10 +14,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.kuzdowicz.gpdapi.constants.GuitarType;
 
 @Entity
 @Table(name = "GUITARS")
+@JsonInclude(Include.NON_EMPTY)
 public class Guitar {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

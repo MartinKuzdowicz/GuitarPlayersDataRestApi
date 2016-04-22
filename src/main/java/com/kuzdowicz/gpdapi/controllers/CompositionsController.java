@@ -26,13 +26,12 @@ public class CompositionsController {
 	public List<Composition> getAllCompositions() {
 		return compositionsRepository.findAll();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/titels")
 	public List<String> getAllCompositionsTitels() {
 		return compositionsRepository.findAll().stream().map(el -> {
 			return el.getTitle();
 		}).collect(Collectors.toList());
 	}
-	
 
 }
