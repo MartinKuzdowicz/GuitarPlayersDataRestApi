@@ -4,5 +4,5 @@ Rest api for delivering and managing information
 
 # Main technologies: 
 * Java 8, Spring MVC, Spring Boot, MySql,
-* Spring Data JPA, REST 
+* Spring Data JPA, REST, AngularJS
 
