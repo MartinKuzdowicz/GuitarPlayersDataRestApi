@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kuzdowicz.gpdapi.models.Album;
+import com.kuzdowicz.gpdapi.models.domain.Album;
 import com.kuzdowicz.gpdapi.repositories.AlbumsRepository;
 
 @RestController

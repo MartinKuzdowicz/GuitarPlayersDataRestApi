@@ -1,0 +1,1 @@
+var GpdApiApp = angular.module('GpdApiApp', []);

@@ -1,4 +1,4 @@
-package com.kuzdowicz.gpdapi.models;
+package com.kuzdowicz.gpdapi.models.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +14,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.kuzdowicz.gpdapi.models.IDomainPKeySetable;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "ALBUMS")
@@ -30,7 +30,6 @@ public class Album implements IDomainPKeySetable {
 
 	@Id
 	@Column(name = "ALBUM_ID")
-	@JsonIgnore
 	private String authorAndTitle;
 
 	@ManyToMany(fetch = FetchType.EAGER)

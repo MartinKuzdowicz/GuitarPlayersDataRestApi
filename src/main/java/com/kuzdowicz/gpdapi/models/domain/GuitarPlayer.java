@@ -1,4 +1,4 @@
-package com.kuzdowicz.gpdapi.models;
+package com.kuzdowicz.gpdapi.models.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,9 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -29,7 +27,6 @@ public class GuitarPlayer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "GUITAR_PLAYER_ID")
-	@JsonIgnore
 	private Long guitarPlayerId;
 
 	@Column(name = "NAME")
@@ -59,13 +56,6 @@ public class GuitarPlayer {
 			inverseJoinColumns = @JoinColumn(name = "MODEL_VERSION_NAME"))
 	private List<Guitar> guitars;
 
-	@Transient
-	@JsonIgnore
-	private String nameAndLastName;
-
-	public void setTransientNameAndLastName() {
-		this.nameAndLastName = this.name.trim() + " " + this.lastname.trim();
-	}
 
 	public Long getGuitarPlayerId() {
 		return guitarPlayerId;
@@ -134,13 +124,6 @@ public class GuitarPlayer {
 		this.nationality = nationality;
 	}
 
-	public String getNameAndLastName() {
-		return nameAndLastName;
-	}
-
-	public void setNameAndLastName(String nameAndLastName) {
-		this.nameAndLastName = nameAndLastName;
-	}
 
 	public Date getDateOfDeath() {
 		return dateOfDeath;

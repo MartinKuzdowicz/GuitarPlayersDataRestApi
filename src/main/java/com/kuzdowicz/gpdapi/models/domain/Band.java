@@ -1,4 +1,4 @@
-package com.kuzdowicz.gpdapi.models;
+package com.kuzdowicz.gpdapi.models.domain;
 
 import java.util.ArrayList;
 import java.util.Date;

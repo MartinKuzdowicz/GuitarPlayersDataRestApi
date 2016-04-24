@@ -1,4 +1,4 @@
-package com.kuzdowicz.gpdapi.models;
+package com.kuzdowicz.gpdapi.models.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

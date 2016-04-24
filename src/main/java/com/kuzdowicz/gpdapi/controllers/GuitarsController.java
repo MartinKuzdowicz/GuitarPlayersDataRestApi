@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kuzdowicz.gpdapi.models.Guitar;
+import com.kuzdowicz.gpdapi.models.domain.Guitar;
 import com.kuzdowicz.gpdapi.repositories.GuitarsRepository;
 
 @RestController

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.kuzdowicz.gpdapi.models.GuitarPlayer;
+import com.kuzdowicz.gpdapi.models.domain.GuitarPlayer;
 
 public interface GuitarPlayersRepository extends JpaRepository<GuitarPlayer, Long> {
 	

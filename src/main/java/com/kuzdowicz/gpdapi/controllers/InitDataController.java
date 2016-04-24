@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kuzdowicz.gpdapi.constants.GuitarType;
-import com.kuzdowicz.gpdapi.models.Album;
-import com.kuzdowicz.gpdapi.models.Band;
-import com.kuzdowicz.gpdapi.models.Composition;
-import com.kuzdowicz.gpdapi.models.Guitar;
-import com.kuzdowicz.gpdapi.models.GuitarPlayer;
-import com.kuzdowicz.gpdapi.models.ProductBrand;
+import com.kuzdowicz.gpdapi.models.domain.Album;
+import com.kuzdowicz.gpdapi.models.domain.Band;
+import com.kuzdowicz.gpdapi.models.domain.Composition;
+import com.kuzdowicz.gpdapi.models.domain.Guitar;
+import com.kuzdowicz.gpdapi.models.domain.GuitarPlayer;
+import com.kuzdowicz.gpdapi.models.domain.ProductBrand;
 import com.kuzdowicz.gpdapi.repositories.AlbumsRepository;
 import com.kuzdowicz.gpdapi.repositories.BandsRepository;
 import com.kuzdowicz.gpdapi.repositories.GuitarPlayersRepository;
@@ -77,7 +77,6 @@ public class InitDataController {
 		santana.setDateOfBirth(dt.toDate());
 		santana.getGuitars().add(lesPaul);
 		santana.setNationality("MEXICO");
-		santana.setTransientNameAndLastName();
 
 		GuitarPlayer hendrix = new GuitarPlayer();
 		hendrix.setName("Jimi");
@@ -91,7 +90,6 @@ public class InitDataController {
 		hendrix.setDateOfBirth(dt2.toDate());
 		hendrix.getGuitars().add(stratocaster);
 		hendrix.setNationality("USA");
-		hendrix.setTransientNameAndLastName();
 
 		guitarPlayersRepository.save(Arrays.asList(santana, hendrix));
 
