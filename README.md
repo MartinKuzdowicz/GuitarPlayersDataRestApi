@@ -9,7 +9,7 @@ Rest api for delivering and managing information about guitars, guitar players a
 
 ## 1.(without inserting test data into db)
 * mvn clean install
-* mvn spring-boot:run ##(without init test data to db)
+* mvn spring-boot:run 
 
 ## 2.(with inserting test data into db)
 * mvn clean install
