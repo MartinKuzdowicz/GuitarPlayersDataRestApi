@@ -1,0 +1,32 @@
+<h1>Albums</h1>
+<br />
+<div ng-controller="AlbumsController">
+	<table id="albumsTable" class="table table-bordered table-stripped">
+		<thead>
+			<tr>
+				<th>title</th>
+				<th>authors</th>
+				<th>tracks</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="album in albums">
+				<td><p>{{album.title}}</p></td>
+				<td>
+					<div ng-repeat="albumAuthor in album.authors">
+						<p>{{albumAuthor.name}}&nbsp;{{albumAuthor.lastname}}</p>
+					</div>
+				</td>
+				<td>
+					<ul>
+						<div ng-repeat="track in album.tracks">
+							<li>
+								<p>{{track.title}}&nbsp;{{track.duration}}</p>
+							</li>
+						</div>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

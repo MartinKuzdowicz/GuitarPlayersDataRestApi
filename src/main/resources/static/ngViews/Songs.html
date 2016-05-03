@@ -1,0 +1,25 @@
+<h1>Songs</h1>
+<br>
+<br>
+<div ng-controller="SongsController">
+	<table id="songsTable" class="table table-bordered table-stripped">
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>author</th>
+				<th>duration</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="song in songs">
+				<td><p>{{song.title}}</p></td>
+				<td>
+					<div ng-repeat="author in song.authors">
+						<p>{{author.name}}&nbsp;{{author.lastname}}</p>
+					</div>
+				</td>
+				<td><p>{{song.duration}}</p></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

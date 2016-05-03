@@ -1,0 +1,58 @@
+
+<h3 class="text-center">Add Guitar Player</h3>
+<div ng-controller="AddGuitarPlayerController">
+	<form ng-submit="addGuitarPlayer()" class="form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-sm-2">name</label>
+			<div class="col-sm-10">
+				<input class="form-control" ng-model="guitarPlayerForm.name" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">lastname</label>
+			<div class="col-sm-10">
+				<input class="form-control" ng-model="guitarPlayerForm.lastname" />
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">age</label>
+			<div class="col-sm-10">
+				<input class="form-control" ng-model="guitarPlayerForm.age" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">is alive</label>
+			<div class="col-sm-10">
+				<input type="checkbox" class="form-label"
+					ng-model="guitarPlayerForm.heIsAlive" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">nationality</label>
+			<div class="col-sm-10">
+				<input class="form-control" ng-model="guitarPlayerForm.nationality" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">dateOfBirth</label>
+			<div class="col-sm-10">
+				<input class="form-control" ng-model="guitarPlayerForm.dateOfBirth" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">guitar</label>
+			<div class="col-sm-10">
+				<select class="form-control" ng-model="guitarPlayerForm.guitarId">
+					<option ng-repeat="guitar in guitars"
+						value="{{guitar.modelVersionName}}">{{guitar.brand.name}}&nbsp;{{guitar.modelName}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-actions floatRight">
+			<input type="submit" value="Add" class="btn btn-primary btn-sm" />
+		</div>
+	</form>
+</div>

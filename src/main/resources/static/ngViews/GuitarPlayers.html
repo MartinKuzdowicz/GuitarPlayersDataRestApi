@@ -1,0 +1,29 @@
+<h1>Guitar Players</h1>
+<br />
+<div ng-controller="GuitarPlayersController">
+	<table id="guitarPlayers" class="table table-bordered table-stripped">
+		<thead>
+			<tr>
+				<th>name and lastname</th>
+				<th>nationality</th>
+				<th>date if birth</th>
+				<th>age</th>
+				<th>guitars</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="player in guitarPlayers">
+				<td><p>{{player.name}}&nbsp;{{player.lastname}}</p></td>
+				<td><p>{{player.nationality}}</p></td>
+				<td><p>{{player.dateOfBirth}}</p></td>
+				<td><p>{{player.age}}</p></td>
+				<td>
+					<div ng-repeat="guitar in player.guitars">
+						<a target="_blank" href="{{guitar.brand.webSite}}">{{guitar.brand.name}}</a>&nbsp;-&nbsp;{{guitar.modelName}}&nbsp;[avg
+						price:&nbsp;{{guitar.avgPrice | currency}}]
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
