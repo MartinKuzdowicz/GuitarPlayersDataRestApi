@@ -1,13 +1,13 @@
-package com.kuzdowicz.gpdapi.controllers;
+package com.kuzdowicz.gpdapi;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.kuzdowicz.gpdapi.constants.GuitarType;
 import com.kuzdowicz.gpdapi.models.domain.Album;
@@ -20,18 +20,15 @@ import com.kuzdowicz.gpdapi.repositories.AlbumsRepository;
 import com.kuzdowicz.gpdapi.repositories.BandsRepository;
 import com.kuzdowicz.gpdapi.repositories.GuitarPlayersRepository;
 
-@RestController
-@RequestMapping("gpdapi/init")
-public class InitDataController {
+@Component
+public class InitDbDataInitializer {
 
 	private GuitarPlayersRepository guitarPlayersRepository;
-
 	private BandsRepository bandsRepository;
-
 	private AlbumsRepository albumsRepository;
 
 	@Autowired
-	public InitDataController(GuitarPlayersRepository guitarPlayersRepository, BandsRepository bandsRepository,
+	public InitDbDataInitializer(GuitarPlayersRepository guitarPlayersRepository, BandsRepository bandsRepository,
 			AlbumsRepository albumsRepository) {
 		this.guitarPlayersRepository = guitarPlayersRepository;
 		this.bandsRepository = bandsRepository;

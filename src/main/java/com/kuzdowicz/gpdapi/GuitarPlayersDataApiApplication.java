@@ -10,6 +10,8 @@ public class GuitarPlayersDataApiApplication {
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(GuitarPlayersDataApiApplication.class, args);
 
+		InitDbDataInitializer dbDataInitializer = ctx.getBean(InitDbDataInitializer.class);
+		dbDataInitializer.initTestData();
 		System.out.println(ctx.getApplicationName());
 	}
 }
