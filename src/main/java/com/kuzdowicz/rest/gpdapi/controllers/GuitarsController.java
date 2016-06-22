@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kuzdowicz.rest.gpdapi.assembly.resources.GuitarsViewModelResourceDto;
 import com.kuzdowicz.rest.gpdapi.db.domain.Guitar;
 import com.kuzdowicz.rest.gpdapi.db.repositories.GuitarsRepository;
 
@@ -29,17 +30,18 @@ public class GuitarsController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public HttpEntity<List<Guitar>> getAllGuitars() {
+	public HttpEntity<GuitarsViewModelResourceDto> getAllGuitars() {
 
+		GuitarsViewModelResourceDto allGuitarsResourceDto = new GuitarsViewModelResourceDto();
 		List<Guitar> allGuitars = guitarsRepository.findAll();
-
 		allGuitars.forEach(g -> {
-			g.add(linkTo(methodOn(GuitarsController.class).getAllGuitars()).withSelfRel());
 			g.add(linkTo(methodOn(GuitarsController.class).guitarById(g.getModelVersionName()))
 					.withRel(g.getModelVersionName()));
 		});
+		allGuitarsResourceDto.setGuitars(allGuitars);
+		allGuitarsResourceDto.add(linkTo(methodOn(GuitarsController.class).getAllGuitars()).withSelfRel());
 
-		return new ResponseEntity<List<Guitar>>(allGuitars, HttpStatus.OK);
+		return new ResponseEntity<GuitarsViewModelResourceDto>(allGuitarsResourceDto, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

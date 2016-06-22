@@ -16,13 +16,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "GUITAR_PLAYERS")
 @JsonInclude(Include.NON_EMPTY)
-public class GuitarPlayer {
+public class GuitarPlayer extends ResourceSupport {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,7 +57,6 @@ public class GuitarPlayer {
 			joinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"), //
 			inverseJoinColumns = @JoinColumn(name = "MODEL_VERSION_NAME"))
 	private List<Guitar> guitars;
-
 
 	public Long getGuitarPlayerId() {
 		return guitarPlayerId;
@@ -123,7 +124,6 @@ public class GuitarPlayer {
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-
 
 	public Date getDateOfDeath() {
 		return dateOfDeath;
