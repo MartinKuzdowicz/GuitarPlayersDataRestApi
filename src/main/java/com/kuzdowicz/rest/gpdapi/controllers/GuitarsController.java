@@ -1,8 +1,15 @@
 package com.kuzdowicz.rest.gpdapi.controllers;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +29,28 @@ public class GuitarsController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Guitar> getAllGuitars() {
-		return guitarsRepository.findAll();
+	public HttpEntity<List<Guitar>> getAllGuitars() {
+
+		List<Guitar> allGuitars = guitarsRepository.findAll();
+
+		allGuitars.forEach(g -> {
+			g.add(linkTo(methodOn(GuitarsController.class).getAllGuitars()).withSelfRel());
+			g.add(linkTo(methodOn(GuitarsController.class).guitarById(g.getModelVersionName()))
+					.withRel(g.getModelVersionName()));
+		});
+
+		return new ResponseEntity<List<Guitar>>(allGuitars, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public HttpEntity<Guitar> guitarById(@PathVariable("id") String id) {
+
+		Guitar guitar = guitarsRepository.findOne(id);
+
+		guitar.add(linkTo(methodOn(GuitarsController.class).guitarById(id)).withSelfRel());
+		guitar.add(linkTo(methodOn(GuitarsController.class).getAllGuitars()).withRel("all-guitars"));
+
+		return new ResponseEntity<Guitar>(guitar, HttpStatus.OK);
 	}
 
 }

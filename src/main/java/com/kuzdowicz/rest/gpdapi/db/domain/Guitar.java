@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.kuzdowicz.rest.gpdapi.constants.GuitarType;
@@ -20,7 +22,7 @@ import com.kuzdowicz.rest.gpdapi.constants.GuitarType;
 @Entity
 @Table(name = "GUITARS")
 @JsonInclude(Include.NON_EMPTY)
-public class Guitar {
+public class Guitar extends ResourceSupport {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BRAND_NAME")
