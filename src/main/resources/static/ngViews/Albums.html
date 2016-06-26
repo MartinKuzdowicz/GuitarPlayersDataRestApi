@@ -14,14 +14,16 @@
 				<td><p>{{album.title}}</p></td>
 				<td>
 					<div ng-repeat="albumAuthor in album.authors">
-						<p>{{albumAuthor.name}}&nbsp;{{albumAuthor.lastname}}</p>
+						<a href="{{albumAuthor._links.self.href}}">{{albumAuthor.name}}&nbsp;{{albumAuthor.lastname}}</a>
 					</div>
 				</td>
 				<td>
 					<ul>
 						<div ng-repeat="track in album.tracks">
 							<li>
-								<p>{{track.title}}&nbsp;{{track.duration}}</p>
+								<p>
+									<strong>{{track.title}}</strong>&nbsp;&nbsp;duration:&nbsp;{{track.duration}}
+								</p>
 							</li>
 						</div>
 					</ul>

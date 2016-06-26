@@ -6,6 +6,7 @@
 		<thead>
 			<tr>
 				<th>name</th>
+				<th>album title</th>
 				<th>author</th>
 				<th>duration</th>
 			</tr>
@@ -13,9 +14,10 @@
 		<tbody>
 			<tr ng-repeat="song in songs">
 				<td><p>{{song.title}}</p></td>
+				<td><p>{{song.albumTitle}}</p></td>
 				<td>
 					<div ng-repeat="author in song.authors">
-						<p>{{author.name}}&nbsp;{{author.lastname}}</p>
+						<a href="{{author._links.self.href}}">{{author.name}}&nbsp;{{author.lastname}}</a>
 					</div>
 				</td>
 				<td><p>{{song.duration}}</p></td>

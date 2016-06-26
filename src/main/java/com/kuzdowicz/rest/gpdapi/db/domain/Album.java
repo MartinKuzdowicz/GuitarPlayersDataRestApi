@@ -49,9 +49,7 @@ public class Album implements IDomainPKeySetable {
 		StringBuilder sb = new StringBuilder();
 
 		for (int i = 0; i < this.authors.size(); i++) {
-
 			GuitarPlayer author = authors.get(i);
-
 			sb.append(author.getName().trim() + " " + //
 					author.getLastname().trim());
 			if (i > 0 && i != authors.size() - 1) {
