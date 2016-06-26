@@ -4,6 +4,7 @@ Rest api for delivering and managing information about guitars, guitar players a
 # Main technologies: 
 * Java 8, Spring MVC, Spring Boot, MySql,
 * Spring Data JPA, REST, AngularJS
+* Spring hateoas
 
 # Runnin the app in terminal:
 
