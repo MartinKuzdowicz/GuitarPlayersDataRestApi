@@ -19,8 +19,8 @@
 				<td><p>{{player.age}}</p></td>
 				<td>
 					<div ng-repeat="guitar in player.guitars">
-						<a target="_blank" href="{{guitar.brand.webSite}}">{{guitar.brand.name}}</a>&nbsp;-&nbsp;{{guitar.modelName}}&nbsp;[avg
-						price:&nbsp;{{guitar.avgPrice | currency}}]
+						{{guitar.brand.name}}</a>&nbsp;-&nbsp;{{guitar.modelName}}&nbsp;&nbsp;->&nbsp;&nbsp; <a
+							href="{{guitar._links.self.href}}">details</a>
 					</div>
 				</td>
 			</tr>

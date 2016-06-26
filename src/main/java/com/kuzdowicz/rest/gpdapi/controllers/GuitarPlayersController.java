@@ -1,6 +1,7 @@
 package com.kuzdowicz.rest.gpdapi.controllers;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,16 +11,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kuzdowicz.rest.gpdapi.assembly.resources.GuitarPlayersViewModelDto;
+import com.kuzdowicz.rest.gpdapi.assembly.assemblers.GuitarPlayerResourceAssembler;
+import com.kuzdowicz.rest.gpdapi.assembly.resources.GuitarPlayerResource;
+import com.kuzdowicz.rest.gpdapi.assembly.viewmodels.GuitarPlayersViewModelDto;
 import com.kuzdowicz.rest.gpdapi.constants.Formats;
 import com.kuzdowicz.rest.gpdapi.db.domain.Guitar;
 import com.kuzdowicz.rest.gpdapi.db.domain.GuitarPlayer;
@@ -35,29 +35,29 @@ public class GuitarPlayersController {
 
 	private final GuitarPlayersRepository guitarPlayersRepository;
 	private final GuitarsRepository guitarsRepository;
+	private final GuitarPlayerResourceAssembler guitarPlayerResourceAssembler;
 
 	@Autowired
-	public GuitarPlayersController(GuitarPlayersRepository guitarPlayersRepository,
-			GuitarsRepository guitarsRepository) {
+	public GuitarPlayersController(GuitarPlayersRepository guitarPlayersRepository, GuitarsRepository guitarsRepository,
+			GuitarPlayerResourceAssembler guitarPlayerResourceAssembler) {
 		this.guitarPlayersRepository = guitarPlayersRepository;
 		this.guitarsRepository = guitarsRepository;
+		this.guitarPlayerResourceAssembler = guitarPlayerResourceAssembler;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public HttpEntity<GuitarPlayersViewModelDto> getAllGuitarPlayers() {
+	public GuitarPlayersViewModelDto getAllGuitarPlayers() {
 
-		GuitarPlayersViewModelDto gpvm = new GuitarPlayersViewModelDto();
-		List<GuitarPlayer> allGuitarPlayers = guitarPlayersRepository.findAll();
+		List<GuitarPlayerResource> guitarPlayers = guitarPlayerResourceAssembler
+				.toResources(guitarPlayersRepository.findAll());
 
-		allGuitarPlayers.forEach(gp -> {
-			gp.add(linkTo(methodOn(GuitarPlayersController.class).oneById(gp.getGuitarPlayerId()))
-					.withRel(gp.getGuitarPlayerId().toString()));
-		});
+		GuitarPlayersViewModelDto gvm = new GuitarPlayersViewModelDto();
+		gvm.setGuitarPlayers(guitarPlayers);
+		gvm.add(linkTo(methodOn(GuitarPlayersController.class)//
+				.getAllGuitarPlayers())//
+						.withSelfRel());
 
-		gpvm.setGuitarPlayers(allGuitarPlayers);
-		gpvm.add(linkTo(methodOn(GuitarPlayersController.class).getAllGuitarPlayers()).withSelfRel());
-
-		return new ResponseEntity<GuitarPlayersViewModelDto>(gpvm, HttpStatus.OK);
+		return gvm;
 	}
 
 	@RequestMapping(value = "/age/{ageVal}", method = RequestMethod.GET)
@@ -66,17 +66,13 @@ public class GuitarPlayersController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public HttpEntity<GuitarPlayer> oneById(@PathVariable("id") Long id) {
+	public GuitarPlayerResource oneById(@PathVariable("id") Long id) {
 
-		GuitarPlayer gp = guitarPlayersRepository.findOne(id);
-		gp.add(linkTo(methodOn(GuitarPlayersController.class).oneById(id)).withSelfRel());
-		gp.add(linkTo(methodOn(GuitarPlayersController.class).getAllGuitarPlayers()).withRel("all-guitar-players"));
-
-		return new ResponseEntity<GuitarPlayer>(gp, HttpStatus.OK);
+		return guitarPlayerResourceAssembler.toResource(guitarPlayersRepository.findOne(id));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public void addOne(@RequestBody AddGuitarPlayerForm addGuitarPlayerForm) {
+	public GuitarPlayerResource addOne(@RequestBody AddGuitarPlayerForm addGuitarPlayerForm) {
 
 		GuitarPlayer newGuitarPlayer = new GuitarPlayer();
 		newGuitarPlayer.setName(addGuitarPlayerForm.getName());
@@ -94,7 +90,9 @@ public class GuitarPlayersController {
 
 		Guitar guitar = guitarsRepository.findOne(addGuitarPlayerForm.getGuitarId());
 		newGuitarPlayer.setGuitars(Arrays.asList(guitar));
-		guitarPlayersRepository.save(newGuitarPlayer);
+		GuitarPlayer savedGuitarPlayer = guitarPlayersRepository.save(newGuitarPlayer);
+
+		return guitarPlayerResourceAssembler.toResource(savedGuitarPlayer);
 
 	}
 
