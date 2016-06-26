@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.kuzdowicz.rest.gpdapi.constants.GuitarType;
 import com.kuzdowicz.rest.gpdapi.db.domain.ProductBrand;
 
+@JsonInclude(Include.NON_EMPTY)
 public class GuitarResource extends ResourceSupport {
 
 	private ProductBrand brand;

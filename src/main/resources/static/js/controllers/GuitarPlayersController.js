@@ -5,10 +5,4 @@ GpdApiApp.controller('GuitarPlayersController', function($scope, $http) {
 		$scope.guitarPlayers = data.guitarPlayers;
 	});
 
-
-	$http.get('/albums').success(function(data) {
-		console.log(data);
-		$scope.albums = data;
-	});
-
 });

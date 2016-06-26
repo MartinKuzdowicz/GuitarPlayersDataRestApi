@@ -13,14 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 @Entity
 @Table(name = "COMPOSITIONS")
-@JsonInclude(Include.NON_EMPTY)
 public class Composition implements IDomainPKeySetable {
 
 	public Composition() {
@@ -35,7 +29,6 @@ public class Composition implements IDomainPKeySetable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID")
-	@JsonBackReference
 	private Album album;
 
 	@Id
@@ -46,7 +39,6 @@ public class Composition implements IDomainPKeySetable {
 	@JoinTable(name = "GUITAR_PLAYERS_COMPOSITIONS_JOIN", //
 			joinColumns = @JoinColumn(name = "COMPOSITION_ID"), //
 			inverseJoinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"))
-	@JsonIgnoreProperties({ "guitars" })
 	private List<GuitarPlayer> authors;
 
 	@Column(name = "DURATION")

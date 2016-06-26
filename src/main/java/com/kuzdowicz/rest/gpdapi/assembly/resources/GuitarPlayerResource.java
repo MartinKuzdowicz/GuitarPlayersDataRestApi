@@ -14,17 +14,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class GuitarPlayerResource extends ResourceSupport {
 
 	private String name;
-
 	private String lastname;
-
 	private int age;
-
 	private Date dateOfBirth;
-
 	private Date dateOfDeath;
-
 	private String nationality;
-
 	private List<GuitarResource> guitars;
 
 	public String getName() {

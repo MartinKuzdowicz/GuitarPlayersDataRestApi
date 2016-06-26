@@ -20,6 +20,8 @@ public class AlbumsResourceAssembler extends ResourceAssemblerSupport<Album, Alb
 
 	@Autowired
 	private GuitarPlayerResourceAssembler guitarPlayerResourceAssembler;
+	@Autowired
+	private CompositionsResourceAssembler compositionsResourceAssembler;
 
 	public AlbumsResourceAssembler() {
 		super(AlbumsController.class, AlbumResource.class);
@@ -31,7 +33,7 @@ public class AlbumsResourceAssembler extends ResourceAssemblerSupport<Album, Alb
 		AlbumResource ar = new AlbumResource();
 		ar.setAuthors(guitarPlayerResourceAssembler.toResources(albumEntity.getAuthors()));
 		ar.setTitle(albumEntity.getTitle());
-		ar.setTracks(albumEntity.getTracks());
+		ar.setTracks(compositionsResourceAssembler.toResources(albumEntity.getTracks()));
 
 		ar.add(linkTo(methodOn(AlbumsController.class).getOneAlbumById(albumEntity.getAuthorAndTitle())).withSelfRel());
 		ar.add(linkTo(methodOn(AlbumsController.class).getAllAlbums()).withRel("all-albums"));

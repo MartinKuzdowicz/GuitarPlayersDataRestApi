@@ -16,12 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 @Entity
 @Table(name = "GUITAR_PLAYERS")
-@JsonInclude(Include.NON_EMPTY)
 public class GuitarPlayer {
 
 	@Id

@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.hateoas.ResourceSupport;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kuzdowicz.rest.gpdapi.db.domain.Composition;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(Include.NON_EMPTY)
 public class AlbumResource extends ResourceSupport {
 
 	private String title;
-	private List<Composition> tracks;
+	private List<CompositionResource> tracks;
 	@JsonIgnoreProperties({ "guitars" })
 	private List<GuitarPlayerResource> authors;
 
@@ -22,11 +24,11 @@ public class AlbumResource extends ResourceSupport {
 		this.title = title;
 	}
 
-	public List<Composition> getTracks() {
+	public List<CompositionResource> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(List<Composition> tracks) {
+	public void setTracks(List<CompositionResource> tracks) {
 		this.tracks = tracks;
 	}
 

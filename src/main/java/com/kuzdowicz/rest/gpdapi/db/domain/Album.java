@@ -14,14 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "ALBUMS")
-@JsonInclude(Include.NON_EMPTY)
 public class Album implements IDomainPKeySetable {
 
 	@Column(name = "TITLE")
@@ -35,12 +29,10 @@ public class Album implements IDomainPKeySetable {
 	@JoinTable(name = "ALBUMS_AUTHORS_JOIN", //
 			joinColumns = @JoinColumn(name = "ALBUM_ID"), //
 			inverseJoinColumns = @JoinColumn(name = "GUITAR_PLAYER_ID"))
-	@JsonIgnoreProperties({ "guitars" })
 	private List<GuitarPlayer> authors;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID")
-	@JsonManagedReference
 	private List<Composition> tracks;
 
 	@Override
