@@ -11,12 +11,14 @@ GpdApiApp.controller('AddGuitarPlayerController', function($scope, $http) {
 	};
 
 	$http.get('/guitars').success(function(data) {
-		$scope.guitars = data;
+		$scope.guitars = data.guitars;
 	});
 
 	$scope.addGuitarPlayer = function() {
 		console.log('addGuitarPlayer()');
-		$http.post('/guitar-players', $scope.guitarPlayerForm);
+		$http.post('/guitar-players', $scope.guitarPlayerForm).success(function(gp){
+			$scope.addedGuitarPlayer = gp;
+		});
 	}
 
 });
